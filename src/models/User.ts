@@ -5,7 +5,6 @@ import {
   prop,
 } from '@typegoose/typegoose'
 import { omit } from 'lodash'
-import { sign } from '@/helpers/jwt'
 
 @modelOptions({
   schemaOptions: { timestamps: true },
@@ -63,9 +62,6 @@ export async function findOrCreateUser(loginOptions: {
   if (!user) {
     throw new Error('User not found')
   }
-  if (!user.token) {
-    user.token = await sign({ id: user.id })
-    await user.save()
-  }
+
   return user
 }

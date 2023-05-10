@@ -8,9 +8,10 @@ dotenv.config({ path: resolve(cwd(), '.env') })
 // eslint-disable-next-line node/no-process-env
 export default cleanEnv(process.env, {
   PORT: num({ default: 1337 }),
-  FACEBOOK_APP_ID: str(),
-  FACEBOOK_APP_SECRET: str(),
-  JWT: str(),
   MONGO: str(),
-  TELEGRAM_LOGIN_TOKEN: str(),
+  SD_API_TOKEN: str(),
+  SD_API_URI: str({
+    default: 'https://stablediffusionapi.com/api/v3/dreambooth',
+  }),
+  IPFS_UPLOADER: str()
 })

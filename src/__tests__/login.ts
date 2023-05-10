@@ -1,12 +1,12 @@
-import * as MockAdapter from 'axios-mock-adapter'
-import * as request from 'supertest'
-import * as shutdown from 'http-graceful-shutdown'
+import MockAdapter from 'axios-mock-adapter'
+import  request from 'supertest'
+import shutdown from 'http-graceful-shutdown'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import { Mongoose } from 'mongoose'
 import { Server } from 'http'
 import axios from 'axios'
-import runApp from '@/helpers/runApp'
-import runMongo from '@/helpers/mongo'
+import runApp from '../helpers/runApp'
+import runMongo from '../helpers/mongo'
 
 describe('Login endpoint', () => {
   const axiosMock = new MockAdapter(axios)
