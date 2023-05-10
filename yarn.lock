@@ -3015,9 +3015,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"backend-starter@workspace:.":
+"ketl-pfp-generator@workspace:.":
   version: 0.0.0-use.local
-  resolution: "backend-starter@workspace:."
+  resolution: "ketl-pfp-generator@workspace:."
   dependencies:
     "@big-whale-labs/bwl-eslint-backend": ^1.0.5
     "@hapi/boom": ^10.0.1

@@ -1,10 +1,9 @@
 {
-  "name": "backend-starter",
+  "name": "ketl-pfp-generator",
   "version": "1.0.0",
-  "description": "Backend starter template",
+  "description": "Backend part for generating pfp",
   "main": "dist/server.js",
-  "repository": "https://github.com/Borodutch/backend-starter",
-  "author": "backmeupplz <backmeupplz@gmail.com>",
+  "repository": "https://github.com/BigWhaleLabs/ketl-pfp-generator",
   "type": "module",
   "license": "MIT",
   "scripts": {

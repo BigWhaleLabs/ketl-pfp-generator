@@ -4,7 +4,7 @@ This repository is to be used as a starter for Koa based Node.js applications wr
 
 ## Installation and local launch
 
-1. Clone this repo: `git clone https://github.com/Borodutch/backend-starter`
+1. Clone this repo: `git clone https://github.com/Borodutch/ketl-pfp-generator`
 2. Launch the [mongo database](https://www.mongodb.com/) locally
 3. Create `.env` with the environment variables listed below
 4. Run `yarn` in the root folder
