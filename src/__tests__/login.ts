@@ -1,12 +1,12 @@
-import MockAdapter from 'axios-mock-adapter'
-import  request from 'supertest'
-import shutdown from 'http-graceful-shutdown'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import { Mongoose } from 'mongoose'
 import { Server } from 'http'
+import MockAdapter from 'axios-mock-adapter'
 import axios from 'axios'
+import request from 'supertest'
 import runApp from '../helpers/runApp'
 import runMongo from '../helpers/mongo'
+import shutdown from 'http-graceful-shutdown'
 
 describe('Login endpoint', () => {
   const axiosMock = new MockAdapter(axios)
@@ -37,8 +37,8 @@ describe('Login endpoint', () => {
 
   it('should return user for valid /google request', async () => {
     const testingGoogleMock = {
-      name: 'John Doe',
       email: 'john@doe.com',
+      name: 'John Doe',
     }
     axiosMock
       .onGet('https://www.googleapis.com/oauth2/v3/userinfo?access_token=test')
