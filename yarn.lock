@@ -2323,15 +2323,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsonwebtoken@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "@types/jsonwebtoken@npm:9.0.1"
-  dependencies:
-    "@types/node": "*"
-  checksum: a7f0925e9a42ad3ae970364c63c5986d40da5c83d51d3f4e624eb0f064a380376f9e3fb3f2f837390a9ab80143f5d75fd51866da30e110f6b486a3379e1c768f
-  languageName: node
-  linkType: hard
-
 "@types/keygrip@npm:*":
   version: 1.0.2
   resolution: "@types/keygrip@npm:1.0.2"
@@ -2496,6 +2487,13 @@ __metadata:
   dependencies:
     "@types/superagent": "*"
   checksum: f0e2b44f86bec2f708d6a3d0cb209055b487922040773049b0f8c6b557af52d4b5fa904e17dfaa4ce6e610172206bbec7b62420d158fa57b6ffc2de37b1730d3
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "@types/uuid@npm:9.0.1"
+  checksum: c472b8a77cbeded4bc529220b8611afa39bd64677f507838f8083d8aac8033b1f88cb9ddaa2f8589e0dcd2317291d0f6e1379f82d5ceebd6f74f3b4825288e00
   languageName: node
   linkType: hard
 
@@ -3015,60 +3013,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ketl-pfp-generator@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "ketl-pfp-generator@workspace:."
-  dependencies:
-    "@big-whale-labs/bwl-eslint-backend": ^1.0.5
-    "@hapi/boom": ^10.0.1
-    "@koa/cors": ^4.0.0
-    "@typegoose/typegoose": ^11.0.0
-    "@types/jest": ^29.5.0
-    "@types/jsonwebtoken": ^9.0.1
-    "@types/koa": ^2.13.5
-    "@types/koa-bodyparser": ^4.3.10
-    "@types/koa-router": ^7.4.4
-    "@types/koa__cors": ^4.0.0
-    "@types/lodash": ^4.14.191
-    "@types/node": ^18.15.10
-    "@types/supertest": ^2.0.12
-    "@typescript-eslint/eslint-plugin": ^5.56.0
-    "@typescript-eslint/parser": ^5.56.0
-    amala: ^8.0.2
-    axios: ^1.4.0
-    axios-mock-adapter: ^1.21.3
-    dotenv: ^16.0.3
-    envalid: ^7.3.1
-    eslint: ^8.36.0
-    eslint-config-prettier: ^8.8.0
-    eslint-plugin-import: ^2.27.5
-    eslint-plugin-no-relative-import-paths: ^1.5.2
-    eslint-plugin-node: ^11.1.0
-    eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-sort-imports-es6-autofix: ^0.6.0
-    facebook-node-sdk: ^0.2.0
-    form-data: ^4.0.0
-    http-graceful-shutdown: ^3.1.13
-    jest: ^29.5.0
-    jsonwebtoken: ^9.0.0
-    koa: ^2.14.1
-    koa-bodyparser: ^4.4.0
-    koa-router: ^12.0.0
-    lodash: ^4.17.21
-    module-alias: ^2.2.2
-    mongodb-memory-server: ^8.12.1
-    mongoose: ^7.0.3
-    node-fetch: ^3.3.1
-    prettier: ^2.8.7
-    source-map-support: ^0.5.21
-    supertest: ^6.3.3
-    ts-jest: ^29.0.5
-    tsc-watch: ^6.0.0
-    typescript: ^5.0.2
-    unique-names-generator: ^4.7.1
-  languageName: unknown
-  linkType: soft
-
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
@@ -3188,13 +3132,6 @@ __metadata:
   version: 0.2.13
   resolution: "buffer-crc32@npm:0.2.13"
   checksum: 06252347ae6daca3453b94e4b2f1d3754a3b146a111d81c68924c22d91889a40623264e95e67955b1cb4a68cbedf317abeabb5140a9766ed248973096db5ce1c
-  languageName: node
-  linkType: hard
-
-"buffer-equal-constant-time@npm:1.0.1":
-  version: 1.0.1
-  resolution: "buffer-equal-constant-time@npm:1.0.1"
-  checksum: 80bb945f5d782a56f374b292770901065bad21420e34936ecbe949e57724b4a13874f735850dd1cc61f078773c4fb5493a41391e7bda40d1fa388d6bd80daaab
   languageName: node
   linkType: hard
 
@@ -3796,15 +3733,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ecdsa-sig-formatter@npm:1.0.11":
-  version: 1.0.11
-  resolution: "ecdsa-sig-formatter@npm:1.0.11"
-  dependencies:
-    safe-buffer: ^5.0.1
-  checksum: 207f9ab1c2669b8e65540bce29506134613dd5f122cccf1e6a560f4d63f2732d427d938f8481df175505aad94583bcb32c688737bb39a6df0625f903d6d93c03
-  languageName: node
-  linkType: hard
-
 "ee-first@npm:1.1.1":
   version: 1.1.1
   resolution: "ee-first@npm:1.1.1"
@@ -4399,13 +4327,6 @@ __metadata:
     jest-message-util: ^29.5.0
     jest-util: ^29.5.0
   checksum: 58f70b38693df6e5c6892db1bcd050f0e518d6f785175dc53917d4fa6a7359a048e5690e19ddcb96b65c4493881dd89a3dabdab1a84dfa55c10cdbdabf37b2d7
-  languageName: node
-  linkType: hard
-
-"facebook-node-sdk@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "facebook-node-sdk@npm:0.2.0"
-  checksum: 802b44576f3fe692fa32d112f51a5b91b2812d361325d15324b06eba5d5260b085928171fb4aa965c4a038f9d517dec663d1c6e695d86ebece7607ceb257d735
   languageName: node
   linkType: hard
 
@@ -6199,45 +6120,65 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "jsonwebtoken@npm:9.0.0"
-  dependencies:
-    jws: ^3.2.2
-    lodash: ^4.17.21
-    ms: ^2.1.1
-    semver: ^7.3.8
-  checksum: b9181cecf9df99f1dc0253f91ba000a1aa4d91f5816d1608c0dba61a5623726a0bfe200b51df25de18c1a6000825d231ad7ce2788aa54fd48dcb760ad9eb9514
-  languageName: node
-  linkType: hard
-
-"jwa@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "jwa@npm:1.4.1"
-  dependencies:
-    buffer-equal-constant-time: 1.0.1
-    ecdsa-sig-formatter: 1.0.11
-    safe-buffer: ^5.0.1
-  checksum: ff30ea7c2dcc61f3ed2098d868bf89d43701605090c5b21b5544b512843ec6fd9e028381a4dda466cbcdb885c2d1150f7c62e7168394ee07941b4098e1035e2f
-  languageName: node
-  linkType: hard
-
-"jws@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "jws@npm:3.2.2"
-  dependencies:
-    jwa: ^1.4.1
-    safe-buffer: ^5.0.1
-  checksum: f0213fe5b79344c56cd443428d8f65c16bf842dc8cb8f5aed693e1e91d79c20741663ad6eff07a6d2c433d1831acc9814e8d7bada6a0471fbb91d09ceb2bf5c2
-  languageName: node
-  linkType: hard
-
 "kareem@npm:2.5.1":
   version: 2.5.1
   resolution: "kareem@npm:2.5.1"
   checksum: b019a960a7b9e44b6ef224ef85e7583d4e969619f53319e571677fbed7e57e01ee8774589726b29741e42790996567d878003c18e674296742dc343bfbf3efb9
   languageName: node
   linkType: hard
+
+"ketl-pfp-generator@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "ketl-pfp-generator@workspace:."
+  dependencies:
+    "@big-whale-labs/bwl-eslint-backend": ^1.0.5
+    "@hapi/boom": ^10.0.1
+    "@koa/cors": ^4.0.0
+    "@typegoose/typegoose": ^11.0.0
+    "@types/jest": ^29.5.0
+    "@types/koa": ^2.13.5
+    "@types/koa-bodyparser": ^4.3.10
+    "@types/koa-router": ^7.4.4
+    "@types/koa__cors": ^4.0.0
+    "@types/lodash": ^4.14.191
+    "@types/node": ^18.15.10
+    "@types/supertest": ^2.0.12
+    "@types/uuid": ^9.0.1
+    "@typescript-eslint/eslint-plugin": ^5.56.0
+    "@typescript-eslint/parser": ^5.56.0
+    amala: ^8.0.2
+    axios: ^1.4.0
+    axios-mock-adapter: ^1.21.3
+    dotenv: ^16.0.3
+    envalid: ^7.3.1
+    eslint: ^8.36.0
+    eslint-config-prettier: ^8.8.0
+    eslint-plugin-import: ^2.27.5
+    eslint-plugin-no-relative-import-paths: ^1.5.2
+    eslint-plugin-node: ^11.1.0
+    eslint-plugin-prettier: ^4.2.1
+    eslint-plugin-sort-imports-es6-autofix: ^0.6.0
+    form-data: ^4.0.0
+    http-graceful-shutdown: ^3.1.13
+    jest: ^29.5.0
+    koa: ^2.14.1
+    koa-bodyparser: ^4.4.0
+    koa-router: ^12.0.0
+    lodash: ^4.17.21
+    module-alias: ^2.2.2
+    mongodb-memory-server: ^8.12.1
+    mongoose: ^7.0.3
+    node-fetch: ^3.3.1
+    prettier: ^2.8.7
+    source-map-support: ^0.5.21
+    supertest: ^6.3.3
+    ts-jest: ^29.0.5
+    tsc-watch: ^6.0.0
+    typescript: ^5.0.2
+    unique-names-generator: ^4.7.1
+    uuid: ^9.0.0
+  languageName: unknown
+  linkType: soft
 
 "keygrip@npm:~1.1.0":
   version: 1.1.0
@@ -7624,7 +7565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:^5.0.1, safe-buffer@npm:~5.2.0":
+"safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: b99c4b41fdd67a6aaf280fcd05e9ffb0813654894223afb78a31f14a19ad220bba8aba1cb14eddce1fcfb037155fe6de4e861784eb434f7d11ed58d1e70dd491

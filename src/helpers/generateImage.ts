@@ -23,5 +23,6 @@ export default async function (nickname: string) {
     },
   }
   const result = await axios.post(env.SD_API_URI, config, options)
+  if (result.data?.status !== 'success') throw new Error('No success!')
   return result.data.output[0]
 }
