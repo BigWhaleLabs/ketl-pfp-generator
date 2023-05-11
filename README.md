@@ -20,6 +20,7 @@ And you should be good to go! Feel free to fork and submit pull requests.
 | `IPFS_UPLOADER` | URL for IPFS upload                      |
 | `MONGO`         | URL of the mongo database                |
 | `PORT`          | Port to run server on (defaults to 1337) |
+| `SD_API_URI`    | URI of SD api                            |
 
 The SD_API_TOKEN can be obtained from the Stable Diffusion API website at stablediffusionapi.com.
 
