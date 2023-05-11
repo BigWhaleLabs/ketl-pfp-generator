@@ -6,8 +6,7 @@ import env from './env'
 
 export default async function (url: string) {
   try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' })
-    const data = response.data
+    const { data } = await axios.get(url, { responseType: 'arraybuffer' })
 
     // Convert the Blob to a ReadableStream
     const readableStream = arrayBufferToReadableStream(data)
