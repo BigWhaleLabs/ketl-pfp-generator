@@ -16,6 +16,7 @@ export default async function generateImage(nickname: string) {
       return finalProcessingResult
     } catch (error) {
       console.error('Error during processing status handling', error)
+      throw error
     }
   }
 
