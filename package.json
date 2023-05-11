@@ -6,6 +6,7 @@
   "repository": "https://github.com/BigWhaleLabs/ketl-pfp-generator",
   "type": "module",
   "license": "MIT",
+  "prettier": "@big-whale-labs/prettier-config",
   "scripts": {
     "distribute": "yarn build && node --experimental-modules --es-module-specifier-resolution=node dist/server.js",
     "start": "tsc-watch --skipLibCheck --onSuccess 'node --experimental-modules --es-module-specifier-resolution=node dist/server.js'",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@big-whale-labs/bwl-eslint-backend": "^1.0.5",
+    "@big-whale-labs/prettier-config": "^1.1.3",
     "@rushstack/eslint-patch": "^1.2.0",
     "@typegoose/typegoose": "^11.0.0",
     "@types/jest": "^29.5.0",
