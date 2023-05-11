@@ -16,12 +16,12 @@ export default async function (url: string) {
     const filename = `${v4()}.png`
     formData.append('file', readableStream, filename)
 
-    const uploadResponse = await axios.post(env.IPFS_UPLOADER, formData, {
+    const { data: uploadData } = await axios.post(env.IPFS_UPLOADER, formData, {
       headers: formData.getHeaders(),
     })
 
-    console.log('File uploaded:', uploadResponse.data)
-    return uploadResponse.data
+    console.log('File uploaded:', uploadData)
+    return uploadData
   } catch (err) {
     console.error(err)
     throw err
