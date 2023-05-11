@@ -5,12 +5,12 @@ import sendImageRequest from './sendImageRequest'
 export default async function generateImage(nickname: string) {
   const prompt = generatePrompt(nickname)
 
-  const initialResult = await sendImageRequest({ prompt })
+  const initialResultData = (await sendImageRequest({ prompt })).data
 
-  if (initialResult.data?.status === 'processing') {
+  if (initialResultData?.status === 'processing') {
     try {
       const finalProcessingResult = await handleProcessingStatus(
-        initialResult.data.fetch_result
+        initialResultData?.fetch_result
       )
       console.log('Final processing result', finalProcessingResult)
       return finalProcessingResult
@@ -20,9 +20,9 @@ export default async function generateImage(nickname: string) {
     }
   }
 
-  if (initialResult.data?.status !== 'success') {
+  if (initialResultData?.status !== 'success') {
     throw new Error('Error generating image')
   }
 
-  return initialResult.data.output[0]
+  return initialResultData.output[0]
 }
