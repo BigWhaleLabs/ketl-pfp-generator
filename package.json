@@ -15,7 +15,6 @@
     "lint": "yarn pretty && eslint --max-warnings 0 --ext ts,tsx,json src"
   },
   "dependencies": {
-    "@big-whale-labs/bwl-eslint-backend": "^1.0.5",
     "@hapi/boom": "^10.0.1",
     "@koa/cors": "^4.0.0",
     "amala": "^8.0.2",
@@ -33,6 +32,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@big-whale-labs/bwl-eslint-backend": "^1.0.5",
     "@typegoose/typegoose": "^11.0.0",
     "@types/jest": "^29.5.0",
     "@types/koa": "^2.13.5",
