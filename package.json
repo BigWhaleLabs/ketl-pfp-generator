@@ -1,7 +1,7 @@
 {
   "name": "ketl-pfp-generator",
   "version": "1.0.0",
-  "description": "Backend part for generating pfp",
+  "description": "Backend part for generating profile pictures",
   "main": "dist/server.js",
   "repository": "https://github.com/BigWhaleLabs/ketl-pfp-generator",
   "type": "module",
