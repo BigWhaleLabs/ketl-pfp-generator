@@ -11,7 +11,5 @@ export default cleanEnv(process.env, {
   MONGO: str(),
   PORT: num({ default: 1337 }),
   SD_API_TOKEN: str(),
-  SD_API_URI: str({
-    default: 'https://stablediffusionapi.com/api/v3/dreambooth',
-  }),
+  SD_API_URI: str(),
 })
