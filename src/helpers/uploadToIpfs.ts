@@ -28,12 +28,11 @@ export default async function (url: string) {
   }
 }
 
-function arrayBufferToReadableStream(arrayBuffer: ArrayBuffer): Readable {
-  const readableStream = new Readable({
+function arrayBufferToReadableStream(arrayBuffer: ArrayBuffer) {
+  return new Readable({
     read() {
       this.push(Buffer.from(arrayBuffer))
       this.push(null)
     },
   })
-  return readableStream
 }
