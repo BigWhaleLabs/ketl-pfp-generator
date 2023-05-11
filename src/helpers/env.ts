@@ -7,7 +7,7 @@ dotenv.config({ path: resolve(cwd(), '.env') })
 
 // eslint-disable-next-line node/no-process-env
 export default cleanEnv(process.env, {
-  IPFS_UPLOADER: str(),
+  IPFS_UPLOADER: str({ default: 'https://ipfs.sealcred.xyz/file/image' }),
   MONGO: str(),
   PORT: num({ default: 1337 }),
   SD_API_TOKEN: str(),
