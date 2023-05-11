@@ -10,7 +10,6 @@ export default class ProfilePictureController {
     { address }: Address
   ) {
     const profilePicture = await findOrCreateProfilePicture(address)
-    console.log(profilePicture)
     return {
       cid: profilePicture.cid,
     }
