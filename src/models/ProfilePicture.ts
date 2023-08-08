@@ -1,6 +1,6 @@
+import { generateRandomName } from '@big-whale-labs/backend-utils'
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
 import generateImage from '../helpers/generateImage'
-import generateRandomName from '../helpers/generateRandomName'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
 @modelOptions({
