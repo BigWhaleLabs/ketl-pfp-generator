@@ -1,5 +1,3 @@
-import { Config } from 'unique-names-generator'
-import { animalDictionary, colorDictionary } from './nameDictionary'
 import env from './env'
 
 export const basePrompt =
@@ -22,11 +20,4 @@ export const httpOptions = {
   headers: {
     'Content-Type': 'application/json',
   },
-}
-
-export const dictionaryConfig: Config = {
-  dictionaries: [animalDictionary, colorDictionary],
-  length: 2,
-  separator: '',
-  style: 'capital',
 }
