@@ -1,10 +1,6 @@
 import { generateRandomName } from '@big-whale-labs/backend-utils'
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
-<<<<<<< Updated upstream
-import generateImage from '../helpers/generateImage'
-=======
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
->>>>>>> Stashed changes
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
 @modelOptions({
@@ -24,8 +20,8 @@ export async function findOrCreateProfilePicture(address: string) {
 
   if (!profilePicture) {
     const nickname = generateRandomName(address)
-    const image = await generateImage(nickname)
-    const { cid } = await uploadToIpfs(image)
+    const readableStream = await generateAndDownloadImage(nickname, 3)
+    const { cid } = await uploadToIpfs(readableStream)
 
     profilePicture = new ProfilePictureModel({ address, cid })
     await profilePicture.save()
