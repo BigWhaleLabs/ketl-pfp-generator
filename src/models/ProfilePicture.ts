@@ -1,7 +1,7 @@
 import { generateRandomName } from '@big-whale-labs/backend-utils'
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
-import generateAndDownloadImage from 'helpers/generateAndDownloadImage'
-import uploadToIpfs from 'helpers/uploadToIpfs'
+import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
+import uploadToIpfs from '../helpers/uploadToIpfs'
 
 @modelOptions({
   schemaOptions: { timestamps: true },

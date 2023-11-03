@@ -15,6 +15,7 @@ export default async function generateAndDownloadImage(
       console.log('retry generate new image')
       return generateAndDownloadImage(nickname, attempt - 1)
     }
+    console.error(e)
     throw new Error(`Couldn't fetch the image`, { cause: e })
   }
 }
