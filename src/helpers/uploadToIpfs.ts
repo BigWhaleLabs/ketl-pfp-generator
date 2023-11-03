@@ -4,13 +4,8 @@ import FormData from 'form-data'
 import axios from 'axios'
 import env from './env'
 
-export default async function (url: string) {
+export default async function (readableStream: Readable) {
   try {
-    const { data } = await axios.get(url, { responseType: 'arraybuffer' })
-
-    // Convert the Blob to a ReadableStream
-    const readableStream = arrayBufferToReadableStream(data)
-
     // Send the downloaded file to the server using a POST request with FormData
     const formData = new FormData()
     const filename = `${v4()}.png`
@@ -26,13 +21,4 @@ export default async function (url: string) {
     console.error(err)
     throw err
   }
-}
-
-function arrayBufferToReadableStream(arrayBuffer: ArrayBuffer) {
-  return new Readable({
-    read() {
-      this.push(Buffer.from(arrayBuffer))
-      this.push(null)
-    },
-  })
 }
