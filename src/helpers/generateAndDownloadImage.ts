@@ -9,6 +9,7 @@ export default async function generateAndDownloadImage(
 ): Promise<Readable> {
   try {
     const url = await generateImage(nickname)
+    if (!url) throw new Error('Empty image url')
     return await fetchProfileImage(url)
   } catch (e) {
     if (isAxiosError(e) && e.response?.status === 404 && attempt > 0) {
