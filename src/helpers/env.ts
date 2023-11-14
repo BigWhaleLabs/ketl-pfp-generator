@@ -9,9 +9,6 @@ dotenv.config({ path: resolve(cwd(), '.env') })
 export default cleanEnv(process.env, {
   IPFS_UPLOADER: str(),
   MONGO: str(),
+  OPENAI_API_KEY: str(),
   PORT: num({ default: 1337 }),
-  SD_API_TOKEN: str(),
-  SD_API_URI: str({
-    default: 'https://stablediffusionapi.com/api/v3/dreambooth',
-  }),
 })

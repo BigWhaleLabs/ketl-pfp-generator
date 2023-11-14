@@ -1,15 +1,15 @@
-import { baseConfig, httpOptions } from './configs'
-import axios from 'axios'
+import OpenAI from 'openai'
 import env from './env'
 
-export default function ({
-  prompt,
-  url = env.SD_API_URI,
-}: {
-  url?: string
-  prompt?: string
-}) {
-  const config = { ...baseConfig, prompt }
+const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY })
 
-  return axios.post(url, config, httpOptions)
+export default async function ({ prompt }: { prompt: string }) {
+  const response = await openai.images.generate({
+    model: 'dall-e-3',
+    n: 1,
+    prompt,
+    size: '1024x1024',
+  })
+
+  return response.data[0].url
 }
