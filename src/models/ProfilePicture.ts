@@ -1,5 +1,10 @@
+import {
+  DocumentType,
+  getModelForClass,
+  modelOptions,
+  prop,
+} from '@typegoose/typegoose'
 import { generateRandomName } from '@big-whale-labs/backend-utils'
-import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
@@ -11,11 +16,32 @@ export class ProfilePicture {
   address!: string
   @prop()
   cid?: string
+  @prop()
+  oldCid?: string
   @prop({ default: true })
   generating?: boolean
 }
 
 export const ProfilePictureModel = getModelForClass(ProfilePicture)
+
+export async function regenerateProfileImage(
+  profilePicture: DocumentType<ProfilePicture>
+) {
+  try {
+    const nickname = generateRandomName(profilePicture.address)
+    const readableStream = await generateAndDownloadImage(nickname, 3)
+    const { cid } = await uploadToIpfs(readableStream)
+    profilePicture.cid = cid
+  } catch (e) {
+    console.error(e)
+    throw e
+  } finally {
+    profilePicture.generating = false
+    await profilePicture.save()
+  }
+
+  return profilePicture
+}
 
 export async function findOrCreateProfilePicture(
   address: string
