@@ -7,6 +7,7 @@ export default async function regenerateOldCids() {
   const profiles = await ProfilePictureModel.find({ oldCid: { $exists: true } })
 
   for (const profile of profiles) {
+    if (profile.cid !== profile.oldCid) continue
     try {
       console.log(
         `Regenerate the pfp for ${profile.address} cid: ${profile.cid}`
