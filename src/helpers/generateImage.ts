@@ -1,8 +1,5 @@
-import generatePrompt from './prompts'
 import sendImageRequest from './sendImageRequest'
 
-export default function generateImage(nickname: string) {
-  const prompt = generatePrompt(nickname)
-
+export default function generateImage(prompt: string) {
   return sendImageRequest({ prompt })
 }

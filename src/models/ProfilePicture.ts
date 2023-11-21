@@ -7,6 +7,7 @@ import {
 import { generateRandomName } from '@big-whale-labs/backend-utils'
 import { maxWaitingTime, tenSeconds } from 'helpers/constants'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
+import generatePrompt from 'helpers/prompts'
 import sleep from 'helpers/sleep'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
@@ -22,6 +23,8 @@ export class ProfilePicture {
   oldCid?: string
   @prop({ default: true })
   generating?: boolean
+  @prop()
+  username?: string
 }
 
 export const ProfilePictureModel = getModelForClass(ProfilePicture)
@@ -31,7 +34,8 @@ export async function regenerateProfileImage(
 ) {
   try {
     const nickname = generateRandomName(profilePicture.address)
-    const readableStream = await generateAndDownloadImage(nickname, 3)
+    const prompt = generatePrompt(nickname)
+    const readableStream = await generateAndDownloadImage(prompt, 3)
     const { cid } = await uploadToIpfs(readableStream)
     profilePicture.cid = cid
   } catch (e) {
@@ -60,10 +64,12 @@ export async function findOrCreateProfilePicture(
     await profilePicture.save()
 
     try {
-      const nickname = generateRandomName(address)
-      const readableStream = await generateAndDownloadImage(nickname, 3)
+      const nickname = generateRandomName(profilePicture.address)
+      const prompt = generatePrompt(nickname)
+      const readableStream = await generateAndDownloadImage(prompt, 3)
       const { cid } = await uploadToIpfs(readableStream)
       profilePicture.cid = cid
+      profilePicture.username = nickname
     } catch (e) {
       console.error(e)
       throw e

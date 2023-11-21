@@ -1,6 +1,8 @@
+import { PromptVariant } from 'helpers/configs'
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
 import { maxWaitingTime, tenSeconds } from 'helpers/constants'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
+import generatePrompt from 'helpers/prompts'
 import sleep from '../helpers/sleep'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
@@ -20,6 +22,7 @@ export const ImageModel = getModelForClass(Image)
 
 export async function findOrCreateImage(
   username: string,
+  promptVariant = PromptVariant.base,
   time = maxWaitingTime
 ): Promise<Image | null> {
   let image = await ImageModel.findOne({ username })
@@ -33,7 +36,8 @@ export async function findOrCreateImage(
     await image.save()
 
     try {
-      const readableStream = await generateAndDownloadImage(username, 3)
+      const prompt = generatePrompt(username, promptVariant)
+      const readableStream = await generateAndDownloadImage(prompt, 3)
       const { cid } = await uploadToIpfs(readableStream)
       image.cid = cid
     } catch (e) {
@@ -49,7 +53,7 @@ export async function findOrCreateImage(
 
   if (image.generating) {
     await sleep(tenSeconds)
-    return findOrCreateImage(username, time - tenSeconds)
+    return findOrCreateImage(username, promptVariant, time - tenSeconds)
   }
 
   return image
