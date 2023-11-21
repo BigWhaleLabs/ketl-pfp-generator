@@ -5,7 +5,9 @@ import {
   prop,
 } from '@typegoose/typegoose'
 import { generateRandomName } from '@big-whale-labs/backend-utils'
+import { maxWaitingTime, tenSeconds } from 'helpers/constants'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
+import sleep from 'helpers/sleep'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
 @modelOptions({
@@ -44,8 +46,9 @@ export async function regenerateProfileImage(
 }
 
 export async function findOrCreateProfilePicture(
-  address: string
-): Promise<ProfilePicture> {
+  address: string,
+  time = maxWaitingTime
+): Promise<ProfilePicture | null> {
   let profilePicture = await ProfilePictureModel.findOne({ address })
 
   if (!profilePicture || (!profilePicture.generating && !profilePicture.cid)) {
@@ -70,9 +73,11 @@ export async function findOrCreateProfilePicture(
     }
   }
 
+  if (time <= 0) return null
+
   if (profilePicture.generating) {
-    await new Promise((res) => setTimeout(res, 5000))
-    return findOrCreateProfilePicture(address)
+    await sleep(tenSeconds)
+    return findOrCreateProfilePicture(address, time - tenSeconds)
   }
 
   return profilePicture

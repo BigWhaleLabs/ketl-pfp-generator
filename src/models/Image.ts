@@ -1,5 +1,7 @@
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
+import { maxWaitingTime, tenSeconds } from 'helpers/constants'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
+import sleep from '../helpers/sleep'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
 @modelOptions({
@@ -16,7 +18,10 @@ export class Image {
 
 export const ImageModel = getModelForClass(Image)
 
-export async function findOrCreateImage(username: string): Promise<Image> {
+export async function findOrCreateImage(
+  username: string,
+  time = maxWaitingTime
+): Promise<Image | null> {
   let image = await ImageModel.findOne({ username })
 
   if (!image || (!image.generating && !image.cid)) {
@@ -40,9 +45,11 @@ export async function findOrCreateImage(username: string): Promise<Image> {
     }
   }
 
+  if (time <= 0) return null
+
   if (image.generating) {
-    await new Promise((res) => setTimeout(res, 5000))
-    return findOrCreateImage(username)
+    await sleep(tenSeconds)
+    return findOrCreateImage(username, time - tenSeconds)
   }
 
   return image
