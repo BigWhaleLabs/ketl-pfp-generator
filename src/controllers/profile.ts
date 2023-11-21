@@ -1,5 +1,6 @@
 import { Body, Controller, Ctx, Params, Post } from 'amala'
 import { Context } from 'koa'
+import { PromptVariant } from '../helpers/configs'
 import { findOrCreateImage } from '../models/Image'
 import { findOrCreateProfilePicture } from '../models/ProfilePicture'
 import { generateRandomName } from '@big-whale-labs/backend-utils'
@@ -25,12 +26,13 @@ export default class ProfilePictureController {
     }
   }
 
-  @Post('/:username')
+  @Post('/:username/:variant')
   async newPicGenerator(
     @Params('username') username: string,
+    @Params('variant') variant: PromptVariant,
     @Ctx() ctx: Context
   ) {
-    const profilePicture = await findOrCreateImage(username)
+    const profilePicture = await findOrCreateImage(username, variant)
 
     if (!profilePicture) ctx.throw(notFound())
 

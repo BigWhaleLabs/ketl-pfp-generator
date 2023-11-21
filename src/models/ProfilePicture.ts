@@ -5,10 +5,10 @@ import {
   prop,
 } from '@typegoose/typegoose'
 import { generateRandomName } from '@big-whale-labs/backend-utils'
-import { maxWaitingTime, tenSeconds } from 'helpers/constants'
+import { maxWaitingTime, tenSeconds } from '../helpers/constants'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
-import generatePrompt from 'helpers/prompts'
-import sleep from 'helpers/sleep'
+import generatePrompt from '../helpers/prompts'
+import sleep from '../helpers/sleep'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
 @modelOptions({

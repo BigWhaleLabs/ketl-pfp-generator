@@ -1,8 +1,8 @@
-import { PromptVariant } from 'helpers/configs'
+import { PromptVariant } from '../helpers/configs'
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
-import { maxWaitingTime, tenSeconds } from 'helpers/constants'
+import { maxWaitingTime, tenSeconds } from '../helpers/constants'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
-import generatePrompt from 'helpers/prompts'
+import generatePrompt from '../helpers/prompts'
 import sleep from '../helpers/sleep'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
@@ -10,8 +10,10 @@ import uploadToIpfs from '../helpers/uploadToIpfs'
   schemaOptions: { timestamps: true },
 })
 export class Image {
-  @prop({ index: true, required: true, unique: true })
+  @prop({ required: true })
   username!: string
+  @prop({ enum: PromptVariant, required: true })
+  variant!: PromptVariant
   @prop()
   cid?: string
   @prop({ default: true })
@@ -25,11 +27,15 @@ export async function findOrCreateImage(
   promptVariant = PromptVariant.base,
   time = maxWaitingTime
 ): Promise<Image | null> {
-  let image = await ImageModel.findOne({ username })
+  let image = await ImageModel.findOne({ username, variant: promptVariant })
 
   if (!image || (!image.generating && !image.cid)) {
     if (!image) {
-      image = new ImageModel({ generating: true, username })
+      image = new ImageModel({
+        generating: true,
+        username,
+        variant: promptVariant,
+      })
     } else {
       image.generating = true
     }
