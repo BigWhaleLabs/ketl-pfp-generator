@@ -1,18 +1,10 @@
-import {
-  DocumentType,
-  getModelForClass,
-  modelOptions,
-  prop,
-} from '@typegoose/typegoose'
+import { DocumentType, getModelForClass, prop } from '@typegoose/typegoose'
 import { generateRandomName } from '@big-whale-labs/backend-utils'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
-@modelOptions({
-  schemaOptions: { timestamps: true },
-})
 export class ProfilePicture {
-  @prop({ index: true, lowercase: true, required: true, unique: true })
+  @prop({ index: true, required: true, unique: true })
   address!: string
   @prop()
   cid?: string
