@@ -7,5 +7,5 @@ export default function generatePrompt(nickname: string) {
   const randomNumber = Math.random() * 100
   const prompt = randomNumber < 2 ? animePrompt : basePrompt
 
-  return `${prompt}, ${splittedNickname}`
+  return `${prompt} following the general theme of "${splittedNickname}" to be used as a profile picture without any text`
 }

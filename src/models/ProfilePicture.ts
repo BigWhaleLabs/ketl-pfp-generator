@@ -1,71 +1,80 @@
-import { DocumentType, getModelForClass, prop } from '@typegoose/typegoose'
+import { FindOrCreate } from './FindOrCreate'
 import { generateRandomName } from '@big-whale-labs/backend-utils'
+import { getModelForClass, prop } from '@typegoose/typegoose'
+import delay from '../helpers/delay'
 import generateAndDownloadImage from '../helpers/generateAndDownloadImage'
 import uploadToIpfs from '../helpers/uploadToIpfs'
 
-export class ProfilePicture {
+export class ProfilePicture extends FindOrCreate {
   @prop({ index: true, required: true, unique: true })
   address!: string
   @prop()
   cid?: string
-  @prop()
-  oldCid?: string
-  @prop({ default: true })
+  @prop({ default: false })
+  isFinished?: boolean
+  @prop({ default: false })
   generating?: boolean
 }
 
 export const ProfilePictureModel = getModelForClass(ProfilePicture)
 
-export async function regenerateProfileImage(
-  profilePicture: DocumentType<ProfilePicture>
-) {
-  try {
-    const nickname = generateRandomName(profilePicture.address)
-    const readableStream = await generateAndDownloadImage(nickname, 3)
-    const { cid } = await uploadToIpfs(readableStream)
-    profilePicture.cid = cid
-  } catch (e) {
-    console.error(e)
-    throw e
-  } finally {
-    profilePicture.generating = false
-    await profilePicture.save()
-  }
-
-  return profilePicture
-}
-
 export async function findOrCreateProfilePicture(
   address: string
 ): Promise<ProfilePicture> {
-  let profilePicture = await ProfilePictureModel.findOne({ address })
+  const profilePictureResult = await ProfilePictureModel.findOrCreate({
+    address,
+  })
+  const oldProfilePicture = await ProfilePictureModel.findOne({
+    address: address.toLowerCase(),
+  })
 
-  if (!profilePicture || (!profilePicture.generating && !profilePicture.cid)) {
-    if (!profilePicture) {
-      profilePicture = new ProfilePictureModel({ address, generating: true })
-    } else {
-      profilePicture.generating = true
-    }
-    await profilePicture.save()
+  const profilePicture = profilePictureResult.doc
 
-    try {
-      const nickname = generateRandomName(address)
-      const readableStream = await generateAndDownloadImage(nickname, 3)
-      const { cid } = await uploadToIpfs(readableStream)
-      profilePicture.cid = cid
-    } catch (e) {
-      console.error(e)
-      throw e
-    } finally {
-      profilePicture.generating = false
-      await profilePicture.save()
-    }
+  if (profilePicture.cid) return profilePicture
+
+  if (oldProfilePicture) return oldProfilePicture
+
+  await delay(5000)
+
+  return findOrCreateProfilePicture(address)
+}
+
+export async function generateImage(address: string) {
+  const picture = await ProfilePictureModel.findOne({ address })
+
+  if (!picture) return null
+  if (picture.generating) return picture
+
+  try {
+    picture.generating = true
+    await picture.save()
+    const nickname = generateRandomName(address)
+    const readableStream = await generateAndDownloadImage(nickname, 3)
+    const { cid } = await uploadToIpfs(readableStream)
+    picture.cid = cid
+    picture.isFinished = true
+    await picture.save()
+  } catch (e) {
+    console.error(e)
+  } finally {
+    picture.generating = false
+    await picture.save()
   }
 
-  if (profilePicture.generating) {
-    await new Promise((res) => setTimeout(res, 5000))
-    return findOrCreateProfilePicture(address)
-  }
+  return picture
+}
 
-  return profilePicture
+export async function checkAndStartGeneratingPictures(limit = 10) {
+  const profilePictures = await ProfilePictureModel.find({
+    isFinished: false,
+  }).limit(limit)
+
+  return Promise.all(profilePictures.map((pfp) => generateImage(pfp.address)))
+}
+
+export function resetGenerating() {
+  return ProfilePictureModel.updateMany(
+    { $or: [{ generating: true }, { cid: undefined }] },
+    { $set: { generating: false, isFinished: false } }
+  )
 }
