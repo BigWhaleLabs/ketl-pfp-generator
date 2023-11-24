@@ -6420,6 +6420,7 @@ __metadata:
     module-alias: ^2.2.2
     mongodb-memory-server: ^8.12.1
     mongoose: ^7.0.3
+    mongoose-findorcreate: ^4.0.0
     node-fetch: ^3.3.1
     openai: ^4.16.1
     prettier: ^2.8.7
@@ -7101,6 +7102,13 @@ __metadata:
     saslprep:
       optional: true
   checksum: 4c30eed40f639ac64069623cf7a4954e98eab81b91d61df90e7813dd2a745259cdc698f3b60bd7f37c123242b7eb0aaae6ee4e29ff2e48f5d13f187931d51f36
+  languageName: node
+  linkType: hard
+
+"mongoose-findorcreate@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "mongoose-findorcreate@npm:4.0.0"
+  checksum: a0bc204589fd1b22fb59ad86159c8635682de0843fff88579da16de37f82e4e5faebb93bcc36d30b8e557c3ce2fe974de86a6d2d589b12d51bb7794ce947efb8
   languageName: node
   linkType: hard
 
