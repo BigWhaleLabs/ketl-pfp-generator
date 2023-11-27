@@ -32,7 +32,7 @@ export async function findOrCreateProfilePicture(
 
   if (profilePicture.cid) return profilePicture
 
-  if (oldProfilePicture) return oldProfilePicture
+  if (oldProfilePicture && oldProfilePicture.cid) return oldProfilePicture
 
   await delay(5000)
 
