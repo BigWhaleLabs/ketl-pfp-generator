@@ -1,5 +1,5 @@
-export const basePrompt = `a fantasy profile picture that doesn't include any text with hyper realistic style with neon that's cute, has symmetry and balance with main subject centered in the middle`
-export const animePrompt = `an anime waifu picture that doesn't include any text in anime style with neon that's cute, has symmetry and balance with main subject centered in the middle and includes`
+export const basePrompt = `Please, generate photorealistic portrait of an animal`
+export const animePrompt = `Please, generate a portrait of an anime waifu `
 
 export const httpOptions = {
   headers: {
