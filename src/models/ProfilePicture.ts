@@ -10,6 +10,8 @@ export class ProfilePicture extends FindOrCreate {
   address!: string
   @prop()
   cid?: string
+  @prop()
+  newCid?: string
   @prop({ default: false })
   isFinished?: boolean
   @prop({ default: false })
@@ -52,6 +54,7 @@ export async function generateImage(address: string) {
     const readableStream = await generateAndDownloadImage(nickname, 3)
     const { cid } = await uploadToIpfs(readableStream)
     picture.cid = cid
+    picture.newCid = cid
     picture.isFinished = true
     await picture.save()
   } catch (e) {
@@ -64,7 +67,42 @@ export async function generateImage(address: string) {
   return picture
 }
 
-export async function checkAndStartGeneratingPictures(limit = 10) {
+export async function generateNewImage(address: string) {
+  const picture = await ProfilePictureModel.findOne({ address })
+
+  if (!picture) return null
+  if (picture.generating) return picture
+
+  try {
+    picture.generating = true
+    await picture.save()
+    const nickname = generateRandomName(address)
+    const readableStream = await generateAndDownloadImage(nickname, 3)
+    const { cid } = await uploadToIpfs(readableStream)
+    picture.newCid = cid
+    picture.isFinished = true
+    await picture.save()
+  } catch (e) {
+    console.error(e)
+  } finally {
+    picture.generating = false
+    await picture.save()
+  }
+
+  return picture
+}
+
+export async function checkAndStartReGeneratingPictures(limit = 5) {
+  const profilePictures = await ProfilePictureModel.find({
+    newCid: { $exists: false },
+  }).limit(limit)
+
+  return Promise.all(
+    profilePictures.map((pfp) => generateNewImage(pfp.address))
+  )
+}
+
+export async function checkAndStartGeneratingPictures(limit = 5) {
   const profilePictures = await ProfilePictureModel.find({
     isFinished: false,
   }).limit(limit)
