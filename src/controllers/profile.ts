@@ -12,7 +12,8 @@ export default class ProfilePictureController {
   ) {
     const profilePicture = await findOrCreateProfilePicture(address)
     return {
-      cid: profilePicture.newCid,
+      cid: profilePicture.cid,
+      newCid: profilePicture.newCid,
       username: generateRandomName(address),
     }
   }
