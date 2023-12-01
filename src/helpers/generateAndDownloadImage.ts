@@ -1,4 +1,3 @@
-import { Readable } from 'stream'
 import { isAxiosError } from 'axios'
 import fetchProfileImage from './fetchProfileImage'
 import generateImage from './generateImage'
@@ -6,7 +5,7 @@ import generateImage from './generateImage'
 export default async function generateAndDownloadImage(
   nickname: string,
   attempt = 1
-): Promise<Readable> {
+): Promise<Buffer> {
   try {
     const url = await generateImage(nickname)
     if (!url) throw new Error('Empty image url')

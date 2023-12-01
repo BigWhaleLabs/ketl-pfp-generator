@@ -1,4 +1,5 @@
 import {
+  checkAndResizePictures,
   checkAndStartGeneratingPictures,
   resetGenerating,
 } from '../models/ProfilePicture'
@@ -10,6 +11,14 @@ export default async function runProfileGeneratorQueue() {
   setInterval(async () => {
     try {
       await checkAndStartGeneratingPictures()
+    } catch (e) {
+      console.error(e)
+    }
+  }, oneMinute)
+
+  setInterval(async () => {
+    try {
+      await checkAndResizePictures()
     } catch (e) {
       console.error(e)
     }
