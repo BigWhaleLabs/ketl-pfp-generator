@@ -1,6 +1,6 @@
+import { DocumentType, getModelForClass, prop } from '@typegoose/typegoose'
 import { FindOrCreate } from './FindOrCreate'
 import { generateRandomName } from '@big-whale-labs/backend-utils'
-import { getModelForClass, prop } from '@typegoose/typegoose'
 import delay from '../helpers/delay'
 import env from '../helpers/env'
 import fetchProfileImage from '../helpers/fetchProfileImage'
@@ -14,7 +14,13 @@ export class ProfilePicture extends FindOrCreate {
   @prop()
   cid?: string
   @prop()
+  resized1024Cid?: string
+  @prop()
   resized512Cid?: string
+  @prop()
+  resized256Cid?: string
+  @prop()
+  resized128Cid?: string
   @prop({ default: false })
   isFinished?: boolean
   @prop({ default: false })
@@ -39,6 +45,17 @@ export async function findOrCreateProfilePicture(
   return findOrCreateProfilePicture(address)
 }
 
+async function resizeAndUpload(
+  picture: DocumentType<ProfilePicture>,
+  buffer: Buffer
+) {
+  for (const size of [128, 256, 512, 1024]) {
+    const resized = await resizeImage(buffer, size, size)
+    const { cid: resizedCid } = await uploadToIpfs(resized)
+    picture.set(`resized${size}Cid`, resizedCid)
+  }
+}
+
 export async function generateImage(address: string) {
   const picture = await ProfilePictureModel.findOne({ address })
 
@@ -53,9 +70,7 @@ export async function generateImage(address: string) {
     const buffer = await generateAndDownloadImage(nickname, 3)
     const { cid } = await uploadToIpfs(buffer)
     picture.cid = cid
-    const resized = await resizeImage(buffer, 512, 512)
-    const { cid: resizedCid } = await uploadToIpfs(resized)
-    picture.resized512Cid = resizedCid
+    await resizeAndUpload(picture, buffer)
     picture.isFinished = true
     await picture.save()
   } catch (e) {
@@ -76,7 +91,7 @@ export async function checkAndStartGeneratingPictures(limit = 5) {
   return Promise.all(profilePictures.map((pfp) => generateImage(pfp.address)))
 }
 
-export async function resizeProfileImage(address: string) {
+export async function checkAndResizeProfileImage(address: string) {
   const picture = await ProfilePictureModel.findOne({ address })
 
   if (!picture) return null
@@ -88,9 +103,7 @@ export async function resizeProfileImage(address: string) {
     const buffer = await fetchProfileImage(
       `${env.IPFS_UPLOADER}/ipfs/${picture.cid}`
     )
-    const resized = await resizeImage(buffer, 512, 512)
-    const { cid: resizedCid } = await uploadToIpfs(resized)
-    picture.resized512Cid = resizedCid
+    await resizeAndUpload(picture, buffer)
     picture.resizing = false
 
     await picture.save()
@@ -104,13 +117,14 @@ export async function resizeProfileImage(address: string) {
   return picture
 }
 
-export async function checkAndResizePictures(limit = 20) {
+export async function checkAndResizePictures(limit = 5) {
   const profilePictures = await ProfilePictureModel.find({
-    resized512Cid: { $exists: false },
+    cid: { $exists: true },
+    resized256Cid: { $exists: false },
   }).limit(limit)
 
   return Promise.all(
-    profilePictures.map((pfp) => resizeProfileImage(pfp.address))
+    profilePictures.map((pfp) => checkAndResizeProfileImage(pfp.address))
   )
 }
 
